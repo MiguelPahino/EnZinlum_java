@@ -1,5 +1,8 @@
 package edu.teamrocket;
 
+import edu.teamrocket.Address.*;
+import edu.teamrocket.Contract.*;
+
 /*
  * Contratos inteligentes con enZinium.
  * 
