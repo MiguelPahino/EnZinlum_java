@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'net.ltgt.errorprone' version '4.0.1'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    errorprone 'com.google.errorprone:error_prone_core:2.28.0'
+
+    implementation group: 'com.github.freva', name: 'ascii-table', version: '1.8.0'
+
+
+    // This dependency is used by the application.
+    implementation libs.guava
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'edu.teamrocket.App'
+}
+
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+    
+    finalizedBy jacocoTestReport
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class' : 'edu.teamrocket.App',
+                   'Package-Title' : 'EnZinlum',
+                   'Package-Version': '1.0',
+                   'Package-Vendor' : 'dummie.nexus@gmail.com',
+                   'Specification-Title' : 'EnZinlum'
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'edu.teamrocket.App',
+                   'Package-Title' : 'EnZinlum',
+                   'Package-Version': '1.0',
+                   'Package-Vendor' : 'dummie.nexus@gmail.com',
+                   'Specification-Title' : 'EnZinlum'
+    }
+}
