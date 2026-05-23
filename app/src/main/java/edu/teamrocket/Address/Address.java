@@ -3,7 +3,7 @@ package edu.teamrocket.Address;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.Optional; 
+import java.util.Optional;  
 
 public class Address {
 
@@ -40,7 +40,7 @@ public class Address {
         this.balance+=EZI;
     }
 
-    public PublicKey getPublicKey(){
+    public PublicKey getPK(){
         return this.publicKey.get();
     }
 
@@ -48,7 +48,7 @@ public class Address {
     public String toString() {
         return new StringBuilder()
                 .append("\nPK = ")
-                .append(this.getPublicKey().hashCode())
+                .append(this.getPK().hashCode())
                 .append("\nBalance = ")
                 .append(this.getBalance())
                 .append("\s")
