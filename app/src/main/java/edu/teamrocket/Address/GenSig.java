@@ -15,12 +15,11 @@ import java.util.Optional;
 import java.security.NoSuchProviderException;
 
 public class GenSig {
-
-    private static Optional<KeyPair> pair = Optional.empty();
-
+    
     private GenSig(){}
 
     public static KeyPair generateKeyPair(){
+        Optional<KeyPair> pair = Optional.empty();
         if (pair.isEmpty()){
             try{
                 KeyPairGenerator generator = KeyPairGenerator.getInstance("DSA", "SUN");
