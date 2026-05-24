@@ -3,7 +3,9 @@ package edu.teamrocket.Address;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.Optional;  
+import java.util.Optional;
+
+import edu.teamrocket.Contract.TokenContract;  
 
 public class Address {
 
@@ -28,7 +30,7 @@ public class Address {
         this.publicKey=Optional.of(publicKey);
     }
 
-    double getBalance(){
+    public double getBalance(){
         return this.balance;
     }
 
@@ -36,8 +38,15 @@ public class Address {
         return privateKey.isPresent();
     }
 
-    void transferEZI(double EZI){
+    public void transferEZI(double EZI){
         this.balance+=EZI;
+    }
+
+    public void send(TokenContract contrato,double enziniums){
+        if (getBalance()>=enziniums){
+            this.balance -= enziniums;
+            contrato.payable(getPK(), enziniums);
+        }
     }
 
     public PublicKey getPK(){
